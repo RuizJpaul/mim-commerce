@@ -3,11 +3,11 @@ async function getOrders() {
   const baseUrl =
     process.env.NEXT_PUBLIC_API_BASE_URL?.startsWith("http")
       ? process.env.NEXT_PUBLIC_API_BASE_URL
-      : process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
-      : "http://localhost:3000/api";
+      : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
 
-  const res = await fetch(`${baseUrl}/orders`, { cache: "no-store" });
+  const res = await fetch(`${baseUrl}/api/orders`, { cache: "no-store" });
 
   if (!res.ok) {
     console.error("Error al obtener órdenes:", res.statusText);
