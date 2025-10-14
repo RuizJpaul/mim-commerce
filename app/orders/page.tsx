@@ -1,29 +1,15 @@
-// ✅ app/orders/page.tsx
-
-export const dynamic = "force-dynamic"; // <- evita el prerender y permite el fetch en build
-
 async function getOrders() {
-  // ✅ Detecta correctamente el entorno (local o Vercel)
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_BASE_URL?.startsWith("http")
-      ? process.env.NEXT_PUBLIC_API_BASE_URL
-      : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+  // Determinar la URL base según el entorno
+const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api";
 
-  try {
-    const res = await fetch(`${baseUrl}/api/orders`, { cache: "no-store" });
+const res = await fetch(`${apiUrl}/orders`, { cache: "no-store" });
 
-    if (!res.ok) {
-      console.error("Error al obtener órdenes:", res.statusText);
-      return [];
-    }
-
-    return await res.json();
-  } catch (err) {
-    console.error("Error en getOrders:", err);
+  if (!res.ok) {
+    console.error("Error al obtener órdenes:", res.statusText);
     return [];
   }
+
+  return res.json();
 }
 
 export default async function OrdersPage() {
