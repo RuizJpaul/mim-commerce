@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// ✅ Nuevo formato: el segundo argumento es "context" (no se desestructura directamente)
+// ✅ GET
 export async function GET(
-  req: Request,
+  req: NextRequest,
   context: { params: { id: string } }
 ) {
   try {
@@ -21,8 +21,9 @@ export async function GET(
   }
 }
 
+// ✅ PATCH
 export async function PATCH(
-  req: Request,
+  req: NextRequest,
   context: { params: { id: string } }
 ) {
   try {
