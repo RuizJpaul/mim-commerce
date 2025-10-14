@@ -4,11 +4,13 @@ import prisma from "@/lib/prisma";
 // ✅ GET
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> } // 👈 los params ahora son una Promise
 ) {
   try {
-    const id = Number(context.params.id);
-    const product = await prisma.product.findUnique({ where: { id } });
+    const { id } = await context.params; // 👈 se usa await aquí
+    const product = await prisma.product.findUnique({
+      where: { id: Number(id) },
+    });
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
@@ -24,14 +26,14 @@ export async function GET(
 // ✅ PATCH
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = Number(context.params.id);
+    const { id } = await context.params; // 👈 también se usa await aquí
     const body = await req.json();
 
     const updated = await prisma.product.update({
-      where: { id },
+      where: { id: Number(id) },
       data: body,
     });
 
