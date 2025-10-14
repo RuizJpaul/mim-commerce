@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface CartItem {
   id: number;
@@ -18,7 +18,7 @@ interface CartState {
   total: () => number;
 }
 
-export const useCartStore = create<CartState>(
+export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
@@ -28,21 +28,40 @@ export const useCartStore = create<CartState>(
           if (existent) {
             return {
               items: state.items.map((i) =>
-                i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+                i.id === item.id
+                  ? { ...i, quantity: i.quantity + item.quantity }
+                  : i
               ),
             };
           }
           return { items: [...state.items, item] };
         }),
       updateItem: (id, quantity) =>
-        set((state) => ({ items: state.items.map((i) => (i.id === id ? { ...i, quantity } : i)) })),
-      removeItem: (id) => set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
+        set((state) => ({
+          items: state.items.map((i) =>
+            i.id === id ? { ...i, quantity } : i
+          ),
+        })),
+      removeItem: (id) =>
+        set((state) => ({
+          items: state.items.filter((i) => i.id !== id),
+        })),
       clearCart: () => set({ items: [] }),
       total: () => get().items.reduce((s, i) => s + i.price * i.quantity, 0),
     }),
     {
       name: "min-commerce-cart",
-      getStorage: () => typeof window !== "undefined" ? localStorage : undefined,
+      storage: createJSONStorage(() => {
+        if (typeof window !== "undefined") {
+          return localStorage; // ✅ cliente
+        }
+        // ⚙️ Fallback seguro para SSR
+        return {
+          getItem: () => null,
+          setItem: () => {},
+          removeItem: () => {},
+        };
+      }),
     }
   )
 );
