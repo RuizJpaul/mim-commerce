@@ -56,7 +56,7 @@ export default function CheckoutForm() {
         <label className="block text-sm font-medium text-gray-700">Nombre</label>
         <input
           {...register("name")}
-          className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+          className="w-full border text-black border-gray-300 rounded px-3 py-2 mt-1"
         />
         {errors.name && <p className="text-red-600 text-sm">{errors.name.message}</p>}
       </div>
@@ -66,7 +66,7 @@ export default function CheckoutForm() {
         <input
           {...register("email")}
           type="email"
-          className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+          className="w-full border text-black border-gray-300 rounded px-3 py-2 mt-1"
         />
         {errors.email && <p className="text-red-600 text-sm">{errors.email.message}</p>}
       </div>
@@ -75,14 +75,14 @@ export default function CheckoutForm() {
         <label className="block text-sm font-medium text-gray-700">Dirección</label>
         <input
           {...register("address")}
-          className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+          className="w-full border text-black border-gray-300 rounded px-3 py-2 mt-1"
         />
         {errors.address && <p className="text-red-600 text-sm">{errors.address.message}</p>}
       </div>
 
       <div className="flex items-center justify-between pt-3 border-t border-gray-200">
         <span className="text-lg font-semibold text-gray-800">
-          Total: ${total.toFixed(2)}
+          Total: S/.{total.toFixed(2)}
         </span>
         <button
           type="submit"

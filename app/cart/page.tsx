@@ -38,7 +38,7 @@ export default function CartPage() {
           <aside className="p-6 bg-white rounded-lg shadow flex flex-col justify-between">
             <div className="font-semibold">Resumen</div>
             <div>
-              <div className="mt-4">Total: <strong>${total.toFixed(2)}</strong></div>
+              <div className="mt-4">Total: <strong>S/.{total.toFixed(2)}</strong></div>
               <Link href="/checkout" className="mt-4 block px-4 py-2 bg-white border-2 border-black text-black font-medium rounded-2xl text-center">Checkout</Link>
             </div>
           </aside>
