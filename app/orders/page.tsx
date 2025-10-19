@@ -1,18 +1,17 @@
-async function getOrders() {
-  // Determinar la URL base según el entorno
-const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api";
-
-const res = await fetch(`${apiUrl}/orders`, { cache: "no-store" });
-
-  if (!res.ok) {
-    console.error("Error al obtener órdenes:", res.statusText);
-    return [];
-  }
-
-  return res.json();
-}
-
 export default async function OrdersPage() {
+  async function getOrders() {
+    // Determinar la URL base según el entorno
+    const apiUrl = "http://localhost:3000/api";
+
+    const res = await fetch(`${apiUrl}/orders`);
+
+    if (!res.ok) {
+      console.error("Error al obtener órdenes:", res.statusText);
+      return [];
+    }
+
+    return await res.json();
+  }
   const orders = await getOrders();
 
   return (

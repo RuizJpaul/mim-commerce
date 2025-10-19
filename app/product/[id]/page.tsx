@@ -11,7 +11,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     async function loadProduct() {
       try {
         const { id } = await params;
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products/${id}`, {
+        const apiUrl = "http://localhost:3000/api"
+        const res = await fetch(`${apiUrl}/products/${id}`, {
           cache: "no-store",
         });
         if (!res.ok) throw new Error("Producto no encontrado");

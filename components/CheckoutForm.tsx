@@ -25,13 +25,14 @@ export default function CheckoutForm() {
 
   async function onSubmit(data: FormData) {
     try {
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/orders`, {
+      const apiUrl = "http://localhost:3000/api";
+      const resp = await fetch(`${apiUrl}/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           customer: data,  // 👈 añadimos los datos del cliente
           items,
-          total 
+          total
         }),
       });
 

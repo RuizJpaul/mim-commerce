@@ -13,7 +13,8 @@ export default function CatalogPage() {
   // Cargar productos desde la API
   useEffect(() => {
     async function fetchProducts() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`, { cache: "no-store" });
+      const apiUrl = "http://localhost:3000/api"  
+      const res = await fetch(`${apiUrl}/products`);
       const data = await res.json();
       setProducts(data);
       setFiltered(data);

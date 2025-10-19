@@ -1,6 +1,9 @@
 {
-  "/catalog/page": "app/catalog/page.js",
+  "/api/products/route": "app/api/products/route.js",
+  "/api/orders/route": "app/api/orders/route.js",
   "/cart/page": "app/cart/page.js",
+  "/catalog/page": "app/catalog/page.js",
+  "/orders/page": "app/orders/page.js",
   "/checkout/page": "app/checkout/page.js",
-  "/orders/page": "app/orders/page.js"
+  "/page": "app/page.js"
 }
